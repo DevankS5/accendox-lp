@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .wrapper {
+            max-width: 900px;
+            width: 90%;
+            background: #fff;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            width: 50%;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 18px;
+            background: #f3f3f3;
+        }
+        .tab.active {
+            background: #fff;
+            border-bottom: 3px solid #f05625;
+            font-weight: bold;
+        }
+        .section {
+            padding: 25px;
+        }
+        .section label {
+            display: block;
+            margin-top: 15px;
+        }
+        .section label:first-of-type {
+            margin-top: 0;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        input.error {
+            border-color: #e74c3c;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        button {
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .summary-box {
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .addon-box {
+            background: #daffd5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .addon-box input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+        }
+        .product-row {
+            margin-top: 10px;
+        }
+        #addonRow {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .header { font-size: 22px; }
+            .tab { font-size: 16px; }
+            .wrapper { margin: 10px auto; }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="wrapper">
+    <div class="header">ORYGIN AI</div>
+
+    <div class="tabs">
+        <div class="tab active" id="tab1">1 Shipping</div>
+        <div class="tab" id="tab2">2 Payment</div>
+    </div>
+
+    <div class="section" id="page1">
+        <label>Full Name *</label>
+        <input type="text" id="fullName" placeholder="Enter your name" />
+        <div class="error-message" id="nameError">Please enter your full name</div>
+
+        <label>Phone *</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" maxlength="10" />
+        <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+
+        <label>Email Address *</label>
+        <input type="email" id="email" placeholder="Enter your email" />
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
+
+        <button onclick="nextPage()">Continue & Next →</button>
+    </div>
+
+    <div class="section" id="page2" style="display:none;">
+        <div class="summary-box">
+            <div class="flex-between">
+                <strong>Product</strong>
+                <strong>Subtotal</strong>
+            </div>
+            <div class="flex-between product-row">
+                <span>AI System Bundle × 1</span>
+                <span>₹199.00</span>
+            </div>
+            <div class="flex-between product-row" id="addonRow">
+                <span>1 on 1 Growth Call × 1</span>
+                <span>₹299.00</span>
+            </div>
+            <div class="flex-between" style="margin-top:15px; padding-top:10px; border-top:1px solid #ccc;">
+                <span><strong>Total</strong></span>
+                <span><strong id="totalPrice">₹199.00</strong></span>
+            </div>
+        </div>
+
+        <div class="addon-box" onclick="toggleAddon()">
+            <input type="checkbox" id="addonCheckbox" /> Yes, I'd like a 1 on 1 Growth Call – Just ₹299
+        </div>
+
+        <button onclick="placeOrder()">Place Order</button>
+    </div>
+
+</div>
+
+<script>
+    const t1 = document.getElementById("tab1");
+    const t2 = document.getElementById("tab2");
+    const p1 = document.getElementById("page1");
+    const p2 = document.getElementById("page2");
+
+    function nextPage() {
+        // Get input values
+        const fullName = document.getElementById("fullName").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        // Reset errors
+        document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('input').forEach(el => el.classList.remove('error'));
+
+        let isValid = true;
+
+        // Validate full name
+        if (fullName === "") {
+            document.getElementById("nameError").style.display = "block";
+            document.getElementById("fullName").classList.add("error");
+            isValid = false;
+        }
+
+        // Validate phone (exactly 10 digits)
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone)) {
+            document.getElementById("phoneError").style.display = "block";
+            document.getElementById("phone").classList.add("error");
+            isValid = false;
+        }
+
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            document.getElementById("emailError").style.display = "block";
+            document.getElementById("email").classList.add("error");
+            isValid = false;
+        }
+
+        // Only proceed if all validations pass
+        if (isValid) {
+            p1.style.display = "none";
+            p2.style.display = "block";
+            t1.classList.remove("active");
+            t2.classList.add("active");
+        }
+    }
+
+    t1.onclick = () => {
+        p1.style.display = "block";
+        p2.style.display = "none";
+        t1.classList.add("active");
+        t2.classList.remove("active");
+    }
+
+    t2.onclick = nextPage;
+
+    // Cart functionality
+    const addonCheckbox = document.getElementById("addonCheckbox");
+    const addonRow = document.getElementById("addonRow");
+    const totalPrice = document.getElementById("totalPrice");
+
+    function toggleAddon() {
+        addonCheckbox.checked = !addonCheckbox.checked;
+        updateCart();
+    }
+
+    function updateCart() {
+        if (addonCheckbox.checked) {
+            addonRow.style.display = "flex";
+            totalPrice.textContent = "₹498.00";
+        } else {
+            addonRow.style.display = "none";
+            totalPrice.textContent = "₹199.00";
+        }
+    }
+
+    function placeOrder() {
+        if (addonCheckbox.checked) {
+            // Redirect to 498 payment link
+            window.location.href = "https://rzp.io/rzp/21Mgn5p";
+        } else {
+            // Redirect to 199 payment link
+            window.location.href = "https://rzp.io/rzp/2etgXQb";
+        }
+    }
+
+    // Prevent checkbox click from triggering twice
+    addonCheckbox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        updateCart();
+    });
+</script>
+
+</body>
+</html>
