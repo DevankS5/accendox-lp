@@ -216,6 +216,28 @@
 
         // Only proceed if all validations pass
         if (isValid) {
+            // Send data to API
+            fetch("https://api.orygin.ai/leads/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: fullName,
+                    contact: phone,
+                    email: email,
+                    source: "lp"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Lead submitted successfully:", data);
+            })
+            .catch(error => {
+                console.error("Error submitting lead:", error);
+            });
+
+            // Proceed to next page
             p1.style.display = "none";
             p2.style.display = "block";
             t1.classList.remove("active");
