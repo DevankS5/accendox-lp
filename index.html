@@ -357,6 +357,128 @@ src="https://www.facebook.com/tr?id=1532639418049747&ev=PageView&noscript=1"
 
 </h2>				</div>
 				</div>
+				
+				<!-- Testimonial Images Section -->
+				<style>
+					.testimonial-carousel-container {
+						max-width: 1200px;
+						margin: 40px auto;
+						padding: 0 20px;
+						position: relative;
+					}
+					
+					.testimonial-carousel {
+						display: flex;
+						gap: 20px;
+						align-items: center;
+						justify-content: center;
+					}
+					
+					.testimonial-slide {
+						flex: 1;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+					
+					.testimonial-slide img {
+						width: 100%;
+						height: auto;
+						object-fit: cover;
+						border-radius: 8px;
+						box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+						transition: transform 0.3s ease, box-shadow 0.3s ease;
+					}
+					
+					.testimonial-slide img:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+					}
+					
+					@media (max-width: 1024px) {
+						.testimonial-carousel {
+							overflow-x: auto;
+							scroll-behavior: smooth;
+							-webkit-overflow-scrolling: touch;
+							scrollbar-width: thin;
+							scrollbar-color: #f48e17 #f0f0f0;
+							align-items: flex-start;
+							justify-content: flex-start;
+						}
+						
+						.testimonial-carousel::-webkit-scrollbar {
+							height: 8px;
+						}
+						
+						.testimonial-carousel::-webkit-scrollbar-track {
+							background: #f0f0f0;
+							border-radius: 4px;
+						}
+						
+						.testimonial-carousel::-webkit-scrollbar-thumb {
+							background: #f48e17;
+							border-radius: 4px;
+						}
+						
+						.testimonial-carousel::-webkit-scrollbar-thumb:hover {
+							background: #d67a12;
+						}
+						
+						.testimonial-slide {
+							flex: 0 0 calc(50% - 10px);
+							min-width: calc(50% - 10px);
+						}
+					}
+					
+					@media (max-width: 640px) {
+						.testimonial-carousel-container {
+							padding: 0;
+							margin: 30px 0;
+							width: 100%;
+						}
+						
+						.testimonial-carousel {
+							gap: 15px;
+							scroll-snap-type: x mandatory;
+							padding: 0 15px;
+							overflow-x: scroll;
+							align-items: flex-start;
+							justify-content: flex-start;
+						}
+						
+						.testimonial-slide {
+							flex: 0 0 calc(100vw - 30px);
+							min-width: calc(100vw - 30px);
+							scroll-snap-align: start;
+							padding: 0;
+						}
+						
+						.testimonial-slide img {
+							width: 100%;
+							height: auto;
+							display: block;
+						}
+					}
+				</style>
+				
+				<div class="testimonial-carousel-container">
+					<div class="testimonial-carousel" id="testimonialCarousel">
+						<div class="testimonial-slide">
+							<img src="./data/testimonial_1.jpg" alt="Customer testimonial 1" loading="lazy">
+						</div>
+						<div class="testimonial-slide">
+							<img src="./data/testimonial_2.jpg" alt="Customer testimonial 2" loading="lazy">
+						</div>
+						<div class="testimonial-slide">
+							<img src="./data/testimonial_3.jpg" alt="Customer testimonial 3" loading="lazy">
+						</div>
+						<div class="testimonial-slide">
+							<img src="./data/testimonial_4.jpg" alt="Customer testimonial 4" loading="lazy">
+						</div>
+					</div>
+				</div>
+				<!-- End Testimonial Images Section -->
+				
 				<section class="elementor-section elementor-inner-section elementor-element elementor-element-f707f6a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f707f6a" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-default">
 					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-1e92c35" data-id="1e92c35" data-element_type="column">
