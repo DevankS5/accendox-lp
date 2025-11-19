@@ -145,6 +145,9 @@
     </script>
     <!-- End Google tag (gtag.js) -->
 
+    <!-- UUID Library -->
+    <script src="https://cdn.jsdelivr.net/npm/uuid@9.0.0/dist/umd/uuidv4.min.js"></script>
+
 </head>
 
 
@@ -252,6 +255,7 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    event_id: uuidv4(),
                     name: fullName,
                     contact: phone,
                     source: "lp"
