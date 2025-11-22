@@ -150,6 +150,7 @@
         import { v4 as uuidv4 } from 'https://cdn.jsdelivr.net/npm/uuid@latest/dist/esm-browser/index.js';
         window.uuidv4 = uuidv4;
     </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </head>
 
@@ -218,6 +219,34 @@
 </div>
 
 <script>
+    (function propagateQueryParams() {
+        const query = window.location.search;
+        if (!query || query === '?') {
+            return;
+        }
+        const skipProtocols = ['mailto:', 'tel:', 'javascript:', 'data:'];
+        document.querySelectorAll('a[href]').forEach(anchor => {
+            const href = anchor.getAttribute('href');
+            if (!href || href.startsWith('#')) {
+                return;
+            }
+            const lowerHref = href.toLowerCase();
+            if (skipProtocols.some(proto => lowerHref.startsWith(proto))) {
+                return;
+            }
+            try {
+                const url = new URL(href, window.location.origin);
+                if (url.origin !== window.location.origin || (url.search && url.search !== '?')) {
+                    return;
+                }
+                url.search = query;
+                anchor.href = url.href;
+            } catch (error) {
+                // Ignore malformed URLs
+            }
+        });
+    })();
+
     const t1 = document.getElementById("tab1");
     const t2 = document.getElementById("tab2");
     const p1 = document.getElementById("page1");
@@ -251,6 +280,9 @@
 
         // Only proceed if all validations pass
         if (isValid) {
+            const trackingData = getTracking();
+            const queryParams = getQueryParams();
+
             // Send data to API
             fetch("https://api.orygin.ai/leads/", {
                 method: "POST",
@@ -261,7 +293,10 @@
                     event_id: uuidv4(),
                     name: fullName,
                     contact: phone,
-                    source: "lp"
+                    source: "lp",
+                    fbp: trackingData.fbp,
+                    fbc: trackingData.fbc,
+                    query_params: queryParams
                 })
             })
             .then(response => response.json())
@@ -309,13 +344,145 @@
         }
     }
 
-    function placeOrder() {
-        if (addonCheckbox.checked) {
-            // Redirect to 498 payment link
-            window.location.href = "https://rzp.io/rzp/ai-bundle-and-growth-call";
-        } else {
-            // Redirect to 199 payment link
-            window.location.href = "https://rzp.io/rzp/ai-systems-bundle";
+    function getParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+        return match ? match[2] : null;
+    }
+
+    function getQueryParams() {
+        const params = {};
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.forEach((value, key) => {
+            if (Object.prototype.hasOwnProperty.call(params, key)) {
+                const existing = params[key];
+                if (Array.isArray(existing)) {
+                    existing.push(value);
+                } else {
+                    params[key] = [existing, value];
+                }
+            } else {
+                params[key] = value;
+            }
+        });
+        return params;
+    }
+
+    function getTracking() {
+        const fbp = getCookie("_fbp") || null;
+
+        const fbclid = getParam("fbclid");
+        let fbc = null;
+        if (fbclid) {
+            fbc = `fb.1.${Date.now()}.${fbclid}`;
+        }
+
+        return { fbp, fbc };
+    }
+
+    async function placeOrder() {
+
+        // Fire InitiateCheckout event if pixel is present
+        if (window.fbq) {
+            fbq('track', 'InitiateCheckout');
+        }
+
+        const fullName = document.getElementById("fullName").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+
+        const addonSelected = addonCheckbox.checked;
+
+        const BASE_PRICE = 199;
+        const ADDON_PRICE = 299;
+
+        const totalAmount = addonSelected
+            ? (BASE_PRICE + ADDON_PRICE)
+            : BASE_PRICE;
+
+        const amountPaise = totalAmount * 100;
+
+        const { fbp, fbc } = getTracking();
+
+        try {
+            const res = await fetch("https://rzp.orygin.ai/create-order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount: amountPaise,
+                    name: fullName,
+                    phone: phone,
+                    email: "",
+                    addon: addonSelected,
+                    fbp: fbp,
+                    fbc: fbc
+                })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert("Order creation failed. Try again.");
+                console.error(data);
+                return;
+            }
+
+            const options = {
+                key: data.key_id,
+                amount: data.amount,
+                currency: "INR",
+                name: "ORYGIN AI",
+                description: addonSelected
+                    ? "AI System Bundle + 1 on 1 Growth Call"
+                    : "AI System Bundle",
+                order_id: data.order_id,
+
+                prefill: {
+                    name: fullName,
+                    contact: phone
+                },
+
+                handler: async function (response) {
+
+                    const verifyRes = await fetch("https://rzp.orygin.ai/verify-payment", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature
+                        })
+                    });
+
+                    const verifyData = await verifyRes.json();
+
+                    if (!verifyRes.ok) {
+                        alert("Payment verification failed. Contact support.");
+                        console.error(verifyData);
+                        return;
+                    }
+
+                    window.location.href = "https://confirmation.orygin.ai";
+                },
+
+                theme: {
+                    color: "#000000"
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+
+        } catch (err) {
+            console.error("Error:", err);
+            alert("Something went wrong. Try again.");
         }
     }
 
