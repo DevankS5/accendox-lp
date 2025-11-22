@@ -159,6 +159,35 @@ src="https://www.facebook.com/tr?id=834384529453026&ev=PageView&noscript=1"
   gtag('config', 'G-T3RYKD2LV7');
 </script>
 <!-- End Google tag (gtag.js) -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const query = window.location.search;
+			if (!query || query === '?') {
+				return;
+			}
+			const skipProtocols = ['mailto:', 'tel:', 'javascript:', 'data:'];
+			document.querySelectorAll('a[href]').forEach(function (anchor) {
+				const href = anchor.getAttribute('href');
+				if (!href || href.startsWith('#')) {
+					return;
+				}
+				const lowerHref = href.toLowerCase();
+				if (skipProtocols.some(function (proto) { return lowerHref.startsWith(proto); })) {
+					return;
+				}
+				try {
+					const url = new URL(href, window.location.origin);
+					if (url.origin !== window.location.origin || (url.search && url.search !== '?')) {
+						return;
+					}
+					url.search = query;
+					anchor.href = url.href;
+				} catch (error) {
+					// Ignore malformed URLs
+				}
+			});
+		});
+	</script>
 	
 		</head>
 <body class="wp-singular page-template page-template-elementor_canvas page page-id-31511 wp-embed-responsive wp-theme-hello-elementor theme-hello-elementor woocommerce-js hello-elementor-default elementor-default elementor-template-canvas elementor-kit-7 elementor-page elementor-page-31511 e--ua-isTouchDevice e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="desktop">
