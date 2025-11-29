@@ -173,6 +173,10 @@
         <label>Phone *</label>
         <input type="tel" id="phone" placeholder="Enter your phone number" maxlength="10" />
         <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+        
+        <label>Email *</label>
+        <input type="email" id="email" placeholder="Enter your email address" />
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
 
         <button onclick="nextPage()">Continue & Next →</button>
     </div>
@@ -256,6 +260,7 @@
         // Get input values
         const fullName = document.getElementById("fullName").value.trim();
         const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
 
         // Reset errors
         document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
@@ -278,6 +283,14 @@
             isValid = false;
         }
 
+        // Validate email (basic pattern)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("emailError").style.display = "block";
+                document.getElementById("email").classList.add("error");
+                isValid = false;
+            }
+
         // Only proceed if all validations pass
         if (isValid) {
             const trackingData = getTracking();
@@ -293,6 +306,7 @@
                     event_id: uuidv4(),
                     name: fullName,
                     contact: phone,
+                    email: email,
                     source: "lp",
                     fbp: trackingData.fbp,
                     fbc: trackingData.fbc,
@@ -393,6 +407,7 @@
 
         const fullName = document.getElementById("fullName").value.trim();
         const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
 
         const addonSelected = addonCheckbox.checked;
 
@@ -417,7 +432,7 @@
                     amount: amountPaise,
                     name: fullName,
                     phone: phone,
-                    email: "",
+                    email: email,
                     addon: addonSelected,
                     fbp: fbp,
                     fbc: fbc
@@ -444,6 +459,7 @@
 
                 prefill: {
                     name: fullName,
+                    email: email,
                     contact: phone
                 },
 
