@@ -189,15 +189,15 @@
             </div>
             <div class="flex-between product-row">
                 <span>AI System Bundle × 1</span>
-                <span>₹199.00</span>
+                <span>₹299.00</span>
             </div>
             <div class="flex-between product-row" id="addonRow">
                 <span>1 on 1 Growth Call × 1</span>
-                <span>₹299.00</span>
+                <span>₹199.00</span>
             </div>
             <div class="flex-between" style="margin-top:15px; padding-top:10px; border-top:1px solid #ccc;">
                 <span><strong>Total</strong></span>
-                <span><strong id="totalPrice">₹199.00</strong></span>
+                <span><strong id="totalPrice">₹299.00</strong></span>
             </div>
         </div>
 
@@ -354,7 +354,7 @@
             totalPrice.textContent = "₹498.00";
         } else {
             addonRow.style.display = "none";
-            totalPrice.textContent = "₹199.00";
+            totalPrice.textContent = "₹299.00";
         }
     }
 
@@ -411,8 +411,8 @@
 
         const addonSelected = addonCheckbox.checked;
 
-        const BASE_PRICE = 199;
-        const ADDON_PRICE = 299;
+        const BASE_PRICE = 299;
+        const ADDON_PRICE = 199;
 
         const totalAmount = addonSelected
             ? (BASE_PRICE + ADDON_PRICE)
