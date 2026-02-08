@@ -485,7 +485,11 @@
                         return;
                     }
 
-                    window.location.href = "https://confirmation.orygin.ai";
+                    let redirectUrl = "https://confirmation.orygin.ai";
+                    if (addonSelected) {
+                        redirectUrl += "?call=True";
+                    }
+                    window.location.href = redirectUrl;
                 },
 
                 theme: {
