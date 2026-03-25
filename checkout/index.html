@@ -486,6 +486,17 @@
                         return;
                     }
 
+                    // Send product access email
+                    try {
+                        await fetch("https://api.orygin.ai/lp/send-confirmation", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email: email, name: fullName })
+                        });
+                    } catch (err) {
+                        console.error("Failed to send confirmation email:", err);
+                    }
+
                     let redirectUrl = "https://lp.orygin.ai/delivery/";
                     if (addonSelected) {
                         redirectUrl += "?call=True";
