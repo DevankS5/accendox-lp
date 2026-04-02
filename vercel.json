@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/delivery", "destination": "/delivery/", "permanent": false },
+    { "source": "/checkout", "destination": "/checkout/", "permanent": false }
+  ]
+}
