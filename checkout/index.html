@@ -297,17 +297,17 @@
             const queryParams = getQueryParams();
 
             // Send data to API
-            fetch("https://api.orygin.ai/leads/", {
+            fetch("https://ivy.orygin.ai/leads/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     event_id: uuidv4(),
-                    name: fullName,
-                    contact: phone,
-                    email: email,
-                    source: "lp",
+                    user_name: fullName,
+                    user_contact: "91" + phone,
+                    user_email: email,
+                    lead_source: "lp",
                     fbp: trackingData.fbp,
                     fbc: trackingData.fbc,
                     query_params: queryParams
@@ -488,7 +488,7 @@
 
                     // Send product access email
                     try {
-                        await fetch("https://api.orygin.ai/lp/send-confirmation", {
+                        await fetch("https://ivy.orygin.ai/leads/send-lp-confirmation", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ email: email, name: fullName })
