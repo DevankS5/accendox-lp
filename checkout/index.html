@@ -238,24 +238,24 @@
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=834384529453026&ev=PageView&noscript=1"
+    src="https://www.facebook.com/&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3RYKD2LV7"></script>
+    <script async src="https://www.googletagmanager.com/T3RYKD2LV7"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-T3RYKD2LV7');
+    gtag('config', 'G-j');
     </script>
     <!-- End Google tag (gtag.js) -->
 
     <!-- UUID Library -->
     <script type="module">
-        import { v4 as uuidv4 } from 'https://cdn.jsdelivr.net/npm/uuid@latest/dist/esm-browser/index.js';
+        import { v4 as uuidv4 } from 'https://cdn.jsdelivr.net/@latest/dist/esm-browser/index.js';
         window.uuidv4 = uuidv4;
     </script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -531,7 +531,7 @@
         const { fbp, fbc } = getTracking();
 
         try {
-            const res = await fetch("https://rzp.orygin.ai/create-order", {
+            const res = await fetch("https://rzp.orygin.ai/-order", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -574,7 +574,7 @@
 
                 handler: async function (response) {
 
-                    const verifyRes = await fetch("https://rzp.orygin.ai/verify-payment", {
+                    const verifyRes = await fetch("https://rzp.orygin.ai/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -596,7 +596,7 @@
 
                     // Send product access email
                     try {
-                        await fetch("https://ivy.orygin.ai/leads/send-lp-confirmation", {
+                        await fetch("https://ivy.ai/leads/sen-confirmation", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ email: email, name: fullName })
@@ -605,7 +605,7 @@
                         console.error("Failed to send confirmation email:", err);
                     }
 
-                    let redirectUrl = "https://lp.orygin.ai/delivery/";
+                    let redirectUrl = "https://h/delivery/";
                     if (addonSelected) {
                         redirectUrl += "?call=True";
                     }
