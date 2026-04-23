@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
         :root {
             --primary: #38bdf8;
             --secondary: #188bf6;
             --teal: #0d9488;
-            --green: #34d399;
+            --green: #03130d;
             --white: #ffffff;
             --muted: #cbd5e0;
             --bg: #05070d;
@@ -18,209 +20,413 @@
             --line: rgba(56, 189, 248, 0.26);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: "Montserrat", "Poppins", Arial, sans-serif;
+            font-family: "Inter", "Montserrat", Arial, sans-serif;
             background:
-                radial-gradient(ellipse at 50% 0%, rgba(24, 139, 246, 0.32) 0%, transparent 46%),
+                radial-gradient(ellipse at 20% 20%, rgba(24, 139, 246, 0.18) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(13, 148, 136, 0.14) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 0%, rgba(24, 139, 246, 0.28) 0%, transparent 46%),
                 linear-gradient(180deg, #020617 0%, var(--bg) 100%);
             color: var(--white);
             min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        /* Animated mesh dots */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .wrapper {
-            max-width: 900px;
-            width: 90%;
-            background: var(--panel);
-            margin: 32px auto;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--line);
-        }
-
-        .header {
-            background: linear-gradient(160deg, #0c3547 0%, #091b2a 100%);
-            color: var(--white);
-            padding: 30px;
-            text-align: center;
-            font-size: 30px;
-            font-weight: 800;
-            letter-spacing: 0;
-            border-bottom: 3px solid rgba(13, 148, 136, 0.42);
-            text-shadow: 0 0 24px rgba(56, 189, 248, 0.28);
-        }
-
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--line);
-            background: rgba(2, 6, 23, 0.72);
-        }
-
-        .tab {
-            width: 50%;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 18px;
-            background: rgba(15, 23, 42, 0.72);
-            color: var(--muted);
-            transition: background 0.2s ease, color 0.2s ease;
-        }
-
-        .tab.active {
-            background: rgba(14, 165, 233, 0.1);
-            border-bottom: 3px solid var(--primary);
-            color: var(--white);
-            font-weight: 800;
-        }
-
-        .section {
-            padding: 28px;
-        }
-
-        .section label {
-            display: block;
-            margin-top: 16px;
-            color: var(--white);
-            font-weight: 700;
-        }
-
-        .section label:first-of-type {
-            margin-top: 0;
-        }
-
-        input,
-        button {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            padding: 14px 15px;
-            margin-top: 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(203, 213, 224, 0.24);
-            font-size: 16px;
-            font-family: inherit;
+            max-width: 520px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--white);
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+        }
+
+        .header-logo .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 8px rgba(56, 189, 248, 0.7); }
+            50% { box-shadow: 0 0 20px rgba(56, 189, 248, 1); }
+        }
+
+        .header-sub {
+            margin-top: 8px;
+            font-size: 13px;
+            color: rgba(203, 213, 224, 0.55);
+            letter-spacing: 0.3px;
+        }
+
+        /* Card */
+        .card {
+            background: rgba(13, 20, 38, 0.88);
+            border: 1px solid rgba(56, 189, 248, 0.14);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.03) inset,
+                0 32px 80px rgba(0,0,0,0.55),
+                0 0 60px rgba(24, 139, 246, 0.06);
+            overflow: hidden;
+        }
+
+        /* Steps indicator */
+        .steps {
+            display: flex;
+            padding: 20px 28px;
+            gap: 0;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(5, 10, 20, 0.5);
+            align-items: center;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .step:not(.active) { opacity: 0.4; }
+
+        .step-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted);
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-num {
+            background: linear-gradient(135deg, var(--secondary), var(--teal));
+            border-color: transparent;
+            color: var(--white);
+            box-shadow: 0 0 16px rgba(24, 139, 246, 0.5);
+        }
+
+        .step.done .step-num {
+            background: rgba(52, 211, 153, 0.15);
+            border-color: rgba(52, 211, 153, 0.5);
+            color: var(--green);
+        }
+
+        .step-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .step.active .step-label { color: var(--white); }
+
+        .step-divider {
+            flex: 0 0 32px;
+            height: 1px;
+            background: rgba(56, 189, 248, 0.15);
+            margin: 0 4px;
+        }
+
+        /* Section content */
+        .section {
+            padding: 32px 28px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .section-desc {
+            font-size: 13px;
+            color: rgba(203, 213, 224, 0.5);
+            margin-bottom: 28px;
+        }
+
+        /* Field groups */
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: rgba(203, 213, 224, 0.7);
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            opacity: 0.4;
+            pointer-events: none;
         }
 
         input {
-            background: rgba(2, 6, 23, 0.68);
+            width: 100%;
+            padding: 13px 14px 13px 42px;
+            background: rgba(5, 10, 25, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.16);
+            border-radius: 12px;
             color: var(--white);
+            font-size: 15px;
+            font-family: inherit;
             outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
         }
 
-        input::placeholder {
-            color: rgba(203, 213, 224, 0.62);
-        }
+        input::placeholder { color: rgba(203, 213, 224, 0.3); }
 
         input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.5);
+            background: rgba(14, 22, 45, 0.8);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1), 0 0 20px rgba(56, 189, 248, 0.06);
         }
 
         input.error {
-            border-color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
         }
 
         .error-message {
-            color: #fca5a5;
-            font-size: 14px;
-            margin-top: 5px;
             display: none;
+            font-size: 12px;
+            color: #fca5a5;
+            margin-top: 6px;
+            padding-left: 4px;
         }
 
+        /* CTA button */
         button {
-            background: linear-gradient(135deg, var(--secondary), var(--teal));
-            color: var(--white);
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 800;
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            margin-top: 22px;
-            border-color: rgba(56, 189, 248, 0.34);
-            box-shadow: 0 0 24px rgba(24, 139, 246, 0.34), 0 10px 28px rgba(0, 0, 0, 0.34);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--teal) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(24, 139, 246, 0.35), 0 1px 0 rgba(255,255,255,0.1) inset;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 36px rgba(56, 189, 248, 0.48), 0 14px 34px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 36px rgba(24, 139, 246, 0.5), 0 1px 0 rgba(255,255,255,0.12) inset;
         }
 
-        .summary-box {
-            background: var(--panel-soft);
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid var(--line);
-            color: var(--white);
-        }
+        button:active { transform: translateY(0); }
 
-        .addon-box {
-            background: rgba(13, 148, 136, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.32);
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 10px;
-            cursor: pointer;
+        /* Security note */
+        .secure-note {
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            color: var(--muted);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: rgba(203, 213, 224, 0.35);
         }
 
-        .addon-box strong {
-            color: var(--white);
+        .secure-note svg { opacity: 0.5; }
+
+        /* Summary box */
+        .summary-box {
+            background: rgba(5, 10, 25, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .addon-box input[type="checkbox"] {
-            width: auto;
-            margin: 4px 0 0;
-            accent-color: var(--green);
+        .summary-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(203, 213, 224, 0.45);
+            margin-bottom: 14px;
         }
 
         .flex-between {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             gap: 16px;
         }
 
         .product-row {
-            margin-top: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.08);
             color: var(--muted);
+            font-size: 14px;
         }
 
-        #addonRow {
-            display: none;
+        .product-row:last-of-type { border-bottom: none; }
+
+        .product-row span:last-child {
+            color: var(--white);
+            font-weight: 600;
         }
 
-        @media (max-width: 600px) {
-            .header {
-                font-size: 22px;
-            }
+        #addonRow { display: none; }
 
-            .tab {
-                font-size: 16px;
-            }
+        .total-row {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(56, 189, 248, 0.18);
+            font-size: 16px;
+        }
 
-            .wrapper {
-                width: calc(100% - 20px);
-                margin: 10px auto;
-                border-radius: 12px;
-            }
+        .total-row strong { color: var(--white); }
 
-            .section {
-                padding: 20px;
-            }
+        #totalPrice {
+            background: linear-gradient(135deg, var(--primary), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 20px;
+            font-weight: 800;
+        }
 
-            .flex-between {
-                font-size: 14px;
-            }
+        /* Addon box */
+        .addon-box {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(52, 211, 153, 0.04) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.22);
+            border-radius: 14px;
+            padding: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            color: var(--muted);
+            transition: border-color 0.2s, background 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .addon-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.4), transparent);
+        }
+
+        .addon-box:hover {
+            border-color: rgba(52, 211, 153, 0.4);
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.12) 0%, rgba(52, 211, 153, 0.06) 100%);
+        }
+
+        .addon-box strong { color: var(--white); }
+
+        .addon-checkbox-wrap {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .addon-box input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            margin: 0;
+            border-radius: 5px;
+            accent-color: var(--green);
+            cursor: pointer;
+        }
+
+        .addon-badge {
+            display: inline-block;
+            background: rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .addon-body { font-size: 13.5px; line-height: 1.65; }
+        .addon-body p { margin: 0; }
+
+        @media (max-width: 560px) {
+            body { padding: 20px 12px 40px; }
+            .section { padding: 24px 20px; }
+            .steps { padding: 18px 20px; }
+            .header-logo { font-size: 19px; }
         }
     </style>
 
@@ -266,68 +472,131 @@
 <body>
 
 <div class="wrapper">
-    <div class="header">ORYGIN AI</div>
 
-    <div class="tabs">
-        <div class="tab active" id="tab1">1. Shipping</div>
-        <div class="tab" id="tab2">2. Payment</div>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-logo">
+            <div class="dot"></div>
+            ASENDOX
+        </div>
+        <div class="header-sub">Secure Checkout — SSL Encrypted</div>
     </div>
 
-    <div class="section" id="page1">
-        <label>Full Name *</label>
-        <input type="text" id="fullName" placeholder="Enter your name" />
-        <div class="error-message" id="nameError">Please enter your full name</div>
+    <!-- Card -->
+    <div class="card">
 
-        <label>Phone *</label>
-        <input type="tel" id="phone" placeholder="Enter your phone number" maxlength="10" />
-        <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
-        
-        <label>Email *</label>
-        <input type="email" id="email" placeholder="Enter your email address" />
-        <div class="error-message" id="emailError">Please enter a valid email address</div>
-
-        <button onclick="nextPage()">Continue & Next →</button>
-    </div>
-
-    <div class="section" id="page2" style="display:none;">
-        <div class="summary-box">
-            <div class="flex-between">
-                <strong>Product</strong>
-                <strong>Subtotal</strong>
+        <!-- Steps -->
+        <div class="steps">
+            <div class="step active" id="tab1">
+                <div class="step-num">1</div>
+                <div class="step-label">Shipping</div>
             </div>
-            <div class="flex-between product-row">
-                <span>AI System Bundle × 1</span>
-                <span>₹299.00</span>
-            </div>
-            <div class="flex-between product-row" id="addonRow">
-                <span>1 on 1 Growth Call × 1</span>
-                <span>₹199.00</span>
-            </div>
-            <div class="flex-between" style="margin-top:15px; padding-top:10px; border-top:1px solid #ccc;">
-                <span><strong>Total</strong></span>
-                <span><strong id="totalPrice">₹299.00</strong></span>
+            <div class="step-divider"></div>
+            <div class="step" id="tab2">
+                <div class="step-num">2</div>
+                <div class="step-label">Payment</div>
             </div>
         </div>
 
-        <div class="addon-box" onclick="toggleAddon()">
-            <input type="checkbox" id="addonCheckbox" /> 
-            <div>
-                <strong>Yes, I'd like a 1 on 1 Growth Call – Just ₹199</strong>
-                <p style="margin: 10px 0 0 0; font-size: 14px; line-height: 1.6;">
-                    <strong>60-Minute 1:1 Consultation Call With Our Expert Team</strong><br><br>
-                    <strong>What you'll walk away with:</strong><br><br>
-                    • A clear, personalized roadmap to scale your coaching, agency, or service business to multiple 6 figures/month<br>
-                    • AI and sales systems to streamline leads, sales, and delivery that we use in our multiple 7 figure Agency<br>
-                    • Practical next steps tailored to where you are and where you want to go<br>
-                    • If it makes sense, we can also share how we support others in implementing this plan inside our hands-on program.<br><br>
-                    <em>This is a one-time offer only available here.</em>
-                </p>
+        <!-- Page 1: Shipping -->
+        <div class="section" id="page1">
+            <div class="section-title">Your Details</div>
+            <div class="section-desc">We'll send your access and receipt here.</div>
+
+            <div class="field">
+                <label>Full Name *</label>
+                <div class="input-wrap">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <input type="text" id="fullName" placeholder="Enter your name" />
+                </div>
+                <div class="error-message" id="nameError">Please enter your full name</div>
+            </div>
+
+            <div class="field">
+                <label>Phone *</label>
+                <div class="input-wrap">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.38a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" maxlength="10" />
+                </div>
+                <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+            </div>
+
+            <div class="field">
+                <label>Email *</label>
+                <div class="input-wrap">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <input type="email" id="email" placeholder="Enter your email address" />
+                </div>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <button onclick="nextPage()">Continue &amp; Next →</button>
+
+            <div class="secure-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                256-bit SSL secured · Your data is safe
             </div>
         </div>
 
-        <button onclick="placeOrder()">Place Order</button>
-    </div>
+        <!-- Page 2: Payment -->
+        <div class="section" id="page2" style="display:none;">
+            <div class="section-title">Order Summary</div>
+            <div class="section-desc">Review your items before payment.</div>
 
+            <div class="summary-box">
+                <div class="summary-header">Items in your order</div>
+                <div class="flex-between product-row">
+                    <span>AI System Bundle × 1</span>
+                    <span>₹299.00</span>
+                </div>
+                <div class="flex-between product-row" id="addonRow">
+                    <span>1 on 1 Growth Call × 1</span>
+                    <span>₹199.00</span>
+                </div>
+                <div class="flex-between total-row">
+                    <strong>Total</strong>
+                    <strong id="totalPrice">₹299.00</strong>
+                </div>
+            </div>
+
+            <div class="addon-box" onclick="toggleAddon()">
+                <div class="addon-checkbox-wrap">
+                    <input type="checkbox" id="addonCheckbox" />
+                </div>
+                <div class="addon-body">
+                    <div class="addon-badge">ONE-TIME OFFER</div>
+                    <strong>Yes, I'd like a 1 on 1 Growth Call – Just ₹199</strong>
+                    <p style="margin-top: 10px;">
+                        <strong>60-Minute 1:1 Consultation Call With Our Expert Team</strong><br><br>
+                        <strong>What you'll walk away with:</strong><br><br>
+                        • A clear, personalized roadmap to scale your coaching, agency, or service business to multiple 6 figures/month<br>
+                        • AI and sales systems to streamline leads, sales, and delivery that we use in our multiple 7 figure Agency<br>
+                        • Practical next steps tailored to where you are and where you want to go<br>
+                        • If it makes sense, we can also share how we support others in implementing this plan inside our hands-on program.<br><br>
+                        <em>This is a one-time offer only available here.</em>
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="placeOrder()" style="margin-top: 20px;">Place Order</button>
+
+            <div class="secure-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                Powered by Razorpay · 100% Secure Payment
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script>
@@ -405,7 +674,7 @@
             const queryParams = getQueryParams();
 
             // Send data to API
-            fetch("https://ivy.orygin.ai/leads/", {
+            fetch("https://ivy.ai/leads/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -531,7 +800,7 @@
         const { fbp, fbc } = getTracking();
 
         try {
-            const res = await fetch("https://rzp.orygin.ai/-order", {
+            const res = await fetch("https://rzp.ai/-order", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

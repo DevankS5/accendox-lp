@@ -746,7 +746,8 @@
 							<div class="elementor-widget-container">
 								<h1 class="elementor-heading-title elementor-size-default"><span
 										style="color:Black"><b>ATTENTION COACHES, CONSULTANTS &amp; AGENCY OWNERS: <br>
-										</b></span> SCALE YOUR BUSINESS TO ₹1 CRORE+</h1>
+										</b></span> YOUR LEADS ARE GOING COLD WHILE YOU READ THIS
+</h1>
 							</div>
 						</div>
 						<div class="elementor-element elementor-element-13f78b03 elementor-hidden-desktop elementor-widget-divider--view-line elementor-widget elementor-widget-divider"
@@ -761,18 +762,18 @@
 						<div class="elementor-element elementor-element-350202d1 elementor-widget elementor-widget-heading"
 							data-id="350202d1" data-element_type="widget" data-widget_type="heading.default">
 							<div class="elementor-widget-container">
-								<h1 class="elementor-heading-title elementor-size-default">INSTALL THIS <span
-										style="color:#f48e17"><u> 24 AI AGENTS SALES TEAM </u> </span> THAT RUN YOUR
-									LEADS &amp; SALES SYSTEM ON <span style="color:#f48e17"><u> AUTOPILOT </u> </span>
+								<h1 class="elementor-heading-title elementor-size-default">DEPLOY AN  
+ <span
+										style="color:#f48e17"><u> AI SALES TEAM </u> </span> THAT FOLLOWS UP, QUALIFIES & BOOKS APPOINTMENTS
+									 <span style="color:#f48e17"><u>  WITHOUT YOU LIFTING A FINGER </u> </span>
 								</h1>
 							</div>
 						</div>
 						<div class="elementor-element elementor-element-2fa3a739 elementor-widget elementor-widget-heading"
 							data-id="2fa3a739" data-element_type="widget" data-widget_type="heading.default">
 							<div class="elementor-widget-container">
-								<h2 class="elementor-heading-title elementor-size-default">Get INSTANT ACCESS to My
-									Plug-and-Play AI Sales Team for Just ₹299 — Built Using the Brains of 100+ Top
-									Marketers &amp; Proven to Generate Revenue over ₹25 Crores</h2>
+								<h2 class="elementor-heading-title elementor-size-default">Get INSTANT ACCESS To A Complete AI Sales Operating System For Just ₹299 — GPT Agents + N8N Automations + Proven Playbooks Built To Replace Your Entire Sales Team
+</h2>
 							</div>
 						</div>
 						<section
@@ -2937,6 +2938,7 @@
 													</svg></span>
 											</span>
 											<a class="elementor-toggle-title" tabindex="0">Q. One-Time Payment?</a>
+											</a>
 										</div>
 
 										<div id="elementor-tab-content-6835"
@@ -3394,67 +3396,6 @@
 	<span id="elementor-device-mode-wpr" class="elementor-screen-only"></span><span id="elementor-device-mode"
 		class="elementor-screen-only"></span><svg style="display: none;" class="e-font-icon-svg-symbols"></svg>
 	<div class="widget_shopping_cart_live_region screen-reader-text" role="status"></div>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			const toggleWidgets = document.querySelectorAll('.elementor-widget-toggle .elementor-toggle');
-
-			toggleWidgets.forEach(function (toggleWidget) {
-				const titles = toggleWidget.querySelectorAll('.elementor-tab-title');
-
-				titles.forEach(function (title) {
-					const controlledId = title.getAttribute('aria-controls');
-					const content = controlledId ? document.getElementById(controlledId) : null;
-
-					if (!content || title.dataset.faqBound === 'true') {
-						return;
-					}
-
-					title.dataset.faqBound = 'true';
-
-					const syncState = function (isExpanded) {
-						title.classList.toggle('elementor-active', isExpanded);
-						title.setAttribute('aria-expanded', String(isExpanded));
-						content.classList.toggle('elementor-active', isExpanded);
-						content.style.display = isExpanded ? 'block' : 'none';
-					};
-
-					syncState(title.getAttribute('aria-expanded') === 'true');
-
-					const handleToggle = function (event) {
-						if (event.type === 'keydown') {
-							const key = event.key;
-							if (key !== 'Enter' && key !== ' ' && key !== 'Spacebar') {
-								return;
-							}
-							event.preventDefault();
-						}
-
-						const wasExpanded = title.getAttribute('aria-expanded') === 'true';
-						const wasVisible = window.getComputedStyle(content).display !== 'none';
-
-						window.setTimeout(function () {
-							const isExpanded = title.getAttribute('aria-expanded') === 'true';
-							const isVisible = window.getComputedStyle(content).display !== 'none';
-
-							if (isExpanded !== wasExpanded || isVisible !== wasVisible) {
-								return;
-							}
-
-							syncState(!wasExpanded);
-						}, 0);
-					};
-
-					title.addEventListener('click', handleToggle);
-					title.addEventListener('keydown', handleToggle);
-
-					const titleLink = title.querySelector('.elementor-toggle-title');
-					if (titleLink) {
-						titleLink.addEventListener('keydown', handleToggle);
-					}
-				});
-			});
-		});
-	</script>
 </body>
 <div id="aiFabShadowRoot" style="opacity: 1; transition: opacity 0.4s ease-out, transform 0.4s ease-out;"><template
 		shadowrootmode="open"><!-- sidePanelButton.html -->
