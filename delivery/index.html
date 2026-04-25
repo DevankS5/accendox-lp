@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You - Asendox</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+    <title>You're In - Asendox</title>
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
-    <!-- Subtle gradient background shapes -->
     <div class="bg-shape bg-shape-1"></div>
     <div class="bg-shape bg-shape-2"></div>
-    
-    <!-- Main container -->
+
     <main class="container">
-        <!-- Success icon with animation -->
+        <!-- Success icon -->
         <div class="icon-wrapper">
             <svg class="success-icon" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
                 <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
@@ -21,38 +19,78 @@
             </svg>
         </div>
 
-        <!-- Main heading -->
-        <h1 class="heading fade-in">Thank you for your purchase</h1>
-        
-        <!-- Subheading -->
-        <p class="subheading fade-in">Here is your product</p>
-        
-        <!-- Divider -->
-        <div class="divider fade-in"></div>
-        
-        <!-- Action buttons -->
-        <div class="button-container fade-in">
-            <a href="https://ai-sales-os.ai/" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="product-button">
-                View Product
-            </a>
-            <a href="https://cal.com/.ai/strategy-call" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="call-button"
-               id="bookCallButton">
-                Book a Call
-            </a>
+        <h1 class="heading fade-in">You're in. Here's what to do next.</h1>
+        <p class="subheading fade-in">Follow these steps to get started with your purchase.</p>
+
+        <div class="steps-container fade-in">
+
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-body">
+                    <h2 class="step-title">Book your onboarding call</h2>
+                    <p class="step-desc">You purchased a 1-on-1 call. Pick a time that works for you and let's get you set up.</p>
+                    <a href="https://cal.com/strategy-call"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="step-btn btn-orange">
+                        Book Your Call
+                    </a>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-body">
+                    <h2 class="step-title">Join the WhatsApp community</h2>
+                    <p class="step-desc">This is where all updates, resources, and support happen. Join now so you don't miss anything.</p>
+                    <a href="https://wa.me%20help%20with%20AI%20bundle"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="step-btn btn-green">
+                        Join WhatsApp Community
+                    </a>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-body">
+                    <h2 class="step-title">Say hi in the community</h2>
+                    <p class="step-desc">Once you're in, send a quick intro message. Copy the one below and make it your own:</p>
+                    <div class="message-template">
+                        <div class="template-label">MESSAGE TEMPLATE</div>
+                        <p>Hi everyone! 👋 I'm [Your Name] from [City].</p>
+                        <p>I'm a [your profession / business type] and I've joined Asendox to [your goal — e.g. grow my clinic with AI].</p>
+                        <p>Excited to be here and learn with all of you! 🚀</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-body">
+                    <h2 class="step-title">Access your product</h2>
+                    <p class="step-desc">Everything you purchased is right here. Start going through it at your own pace.</p>
+                    <a href="https://ai-sales-os.ai/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="step-btn btn-dark">
+                        Open AI Clinic Growth System
+                    </a>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Optional: Status message for API submission -->
         <div id="status-message" class="status-message"></div>
     </main>
 
-    <a href="https://wa.me/918448799495?text=Hi%2C%20I%20need%20help%20with%20AI%20bundle" 
-       target="_blank" 
+    <a href="https://wa.me/918448799495?text=Hi%2C%20I%20need%20help%20with%20AI%20bundle"
+       target="_blank"
        rel="noopener noreferrer"
        class="contact-button"
        aria-label="Contact us on WhatsApp">
